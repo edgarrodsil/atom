@@ -233,6 +233,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
   protected function process()
   {
+    // AIP UUID
+    $aipUUID = $this->getUUID($this->filename);
+
     // Find METS file
     if ($handle = opendir($this->filename))
     {
@@ -243,6 +246,25 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           $path = $this->filename.DIRECTORY_SEPARATOR.$entry;
 
           sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Opening '.$path);
+
+          // Directory for the METS file
+          $dirPath = sfConfig::get('sf_web_dir').
+            DIRECTORY_SEPARATOR.'uploads'.
+            DIRECTORY_SEPARATOR.'aips'.
+            DIRECTORY_SEPARATOR.$aipUUID.
+            DIRECTORY_SEPARATOR;
+
+          // Create the target directory
+          if (!file_exists($dirPath))
+          {
+            mkdir($dirPath, 0755, true);
+          }
+
+          // Copy METS file
+          if (false !== @copy($path, $dirPath.'METS.xml'))
+          {
+            sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Saving '.$dirPath.'METS.xml');
+          }
 
           $this->document = new SimpleXMLElement(@file_get_contents($this->filename.DIRECTORY_SEPARATOR.$entry));
 
@@ -263,9 +285,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
 
     $this->document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-
-    // AIP UUID
-    $aipUUID = $this->getUUID($this->filename);
 
     sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - aipUUID: '.$aipUUID);
 
