@@ -673,6 +673,12 @@ QubitTaxonomy:
       it: 'Modelli degli oggetti informativi'
       pt: 'Modelos de objetos de informação'
       sl: 'Predloge za informacijski objekt'
+  QubitTaxonomy_aip_types:
+    source_culture: en
+    id: 71
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'AIP types'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -1837,6 +1843,34 @@ QubitTerm:
       pt: Política
       sl: Pravilo
       th: นโยบาย
+  QubitTerm_term_artwork:
+    taxonomy_id: QubitTaxonomy_aip_types
+    parent_id: QubitTerm_110
+    id: 178
+    source_culture: en
+    name:
+      en: 'Artwork'
+  QubitTerm_term_software:
+    taxonomy_id: QubitTaxonomy_aip_types
+    parent_id: QubitTerm_110
+    id: 179
+    source_culture: en
+    name:
+      en: 'Software'
+  QubitTerm_term_documentation:
+    taxonomy_id: QubitTaxonomy_aip_types
+    parent_id: QubitTerm_110
+    id: 180
+    source_culture: en
+    name:
+      en: 'Documentation'
+  QubitTerm_term_unclassified:
+    taxonomy_id: QubitTaxonomy_aip_types
+    parent_id: QubitTerm_110
+    id: 181
+    source_culture: en
+    name:
+      en: 'Unclassified'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical

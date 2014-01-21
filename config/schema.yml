@@ -34,6 +34,13 @@ propel:
     sources: longvarchar
     revision_history: longvarchar
 
+  aip:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    information_object_id:
+    aip_type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    object_uuid: { type: varchar(255), index: unique }
+    aip_uuid: varchar(255)
+
   contact_information:
     actor_id: { type: integer, required: true, foreignTable: actor, foreignReference: id, onDelete: cascade }
     primary_contact: boolean
