@@ -233,6 +233,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
   protected function process()
   {
+    ProjectConfiguration::getActive()->loadHelpers('Qubit');
+
     // AIP UUID
     $aipUUID = $this->getUUID($this->filename);
 
@@ -305,6 +307,23 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         $this->addCreationEvent($parent, $creation);
       }
     }
+    else
+    {
+      $parent = $this->resource;
+    }
+
+    $parts = pathinfo($this->filename);
+    $filename = $parts['basename'];
+
+    // Store AIP data
+    $aip = new QubitAip;
+    $aip->typeId = QubitTerm::DOCUMENTATION_ID; // TODO: Get AIP type from param
+    $aip->informationObjectId = $parent->id;
+    $aip->uuid = $aipUUID;
+    $aip->filename = $filename; // Remove UUID from filename?
+    $aip->sizeOnDisk = hr_filesize(Qubit::getDirectorySize($this->filename));
+    $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
+    $aip->save();
 
     $mapping = $this->getStructMapFileToDmdSecMapping();
 
@@ -333,16 +352,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
 
-      // Parent must be set before saving
-      if (isset($parent))
-      {
-        $child->parentId = $parent->id;
-      }
-      else
-      {
-        $child->parentId = $this->resource->id;
-      }
-
       // Storage UUIDs
       $child->addProperty('objectUUID', $objectUUID);
       $child->addProperty('aipUUID', $aipUUID);
@@ -353,6 +362,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $digitalObject->usageId = QubitTerm::MASTER_ID;
       $child->digitalObjects[] = $digitalObject;
 
+      // Parent must be set before saving
+      $child->parentId = $parent->id;
       $child->save();
 
       // Process metatadata from METS file
