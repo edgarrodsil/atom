@@ -1188,7 +1188,7 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
 
   public static function addaipsCriteriaById(Criteria $criteria, $id)
   {
-    $criteria->add(QubitAip::AIP_TYPE_ID, $id);
+    $criteria->add(QubitAip::TYPE_ID, $id);
 
     return $criteria;
   }

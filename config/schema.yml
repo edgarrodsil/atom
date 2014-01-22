@@ -37,9 +37,11 @@ propel:
   aip:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     information_object_id:
-    aip_type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
-    object_uuid: { type: varchar(255), index: unique }
-    aip_uuid: varchar(255)
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    uuid: varchar(36)
+    filename: varchar(1024)
+    size_on_disk: varchar(255)
+    digital_object_count: integer
 
   contact_information:
     actor_id: { type: integer, required: true, foreignTable: actor, foreignReference: id, onDelete: cascade }

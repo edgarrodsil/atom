@@ -9,9 +9,11 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
 
     ID = 'aip.ID',
     INFORMATION_OBJECT_ID = 'aip.INFORMATION_OBJECT_ID',
-    AIP_TYPE_ID = 'aip.AIP_TYPE_ID',
-    OBJECT_UUID = 'aip.OBJECT_UUID',
-    AIP_UUID = 'aip.AIP_UUID';
+    TYPE_ID = 'aip.TYPE_ID',
+    UUID = 'aip.UUID',
+    FILENAME = 'aip.FILENAME',
+    SIZE_ON_DISK = 'aip.SIZE_ON_DISK',
+    DIGITAL_OBJECT_COUNT = 'aip.DIGITAL_OBJECT_COUNT';
 
   public static function addSelectColumns(Criteria $criteria)
   {
@@ -21,9 +23,11 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
 
     $criteria->addSelectColumn(QubitAip::ID);
     $criteria->addSelectColumn(QubitAip::INFORMATION_OBJECT_ID);
-    $criteria->addSelectColumn(QubitAip::AIP_TYPE_ID);
-    $criteria->addSelectColumn(QubitAip::OBJECT_UUID);
-    $criteria->addSelectColumn(QubitAip::AIP_UUID);
+    $criteria->addSelectColumn(QubitAip::TYPE_ID);
+    $criteria->addSelectColumn(QubitAip::UUID);
+    $criteria->addSelectColumn(QubitAip::FILENAME);
+    $criteria->addSelectColumn(QubitAip::SIZE_ON_DISK);
+    $criteria->addSelectColumn(QubitAip::DIGITAL_OBJECT_COUNT);
 
     return $criteria;
   }
@@ -77,9 +81,9 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
     return $criteria;
   }
 
-  public static function addJoinaipTypeCriteria(Criteria $criteria)
+  public static function addJointypeCriteria(Criteria $criteria)
   {
-    $criteria->addJoin(QubitAip::AIP_TYPE_ID, QubitTerm::ID);
+    $criteria->addJoin(QubitAip::TYPE_ID, QubitTerm::ID);
 
     return $criteria;
   }

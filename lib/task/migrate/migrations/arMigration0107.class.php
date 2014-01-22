@@ -43,11 +43,12 @@ CREATE TABLE `aip`
 (
         `id` INTEGER  NOT NULL,
         `information_object_id` INTEGER  NOT NULL,
-        `aip_type_id` INTEGER,
-        `object_uuid` VARCHAR(255),
-        `aip_uuid` VARCHAR(255),
+        `type_id` INTEGER,
+        `uuid` VARCHAR(36),
+        `filename` VARCHAR(1024),
+        `size_on_disk` VARCHAR(255),
+        `digital_object_count` INTEGER,
         PRIMARY KEY (`id`),
-        UNIQUE KEY `aip_U_1` (`object_uuid`),
         CONSTRAINT `aip_FK_1`
                 FOREIGN KEY (`id`)
                 REFERENCES `object` (`id`)
@@ -56,9 +57,9 @@ CREATE TABLE `aip`
         CONSTRAINT `aip_FK_2`
                 FOREIGN KEY (`information_object_id`)
                 REFERENCES `information_object` (`id`),
-        INDEX `aip_FI_3` (`aip_type_id`),
+        INDEX `aip_FI_3` (`type_id`),
         CONSTRAINT `aip_FK_3`
-                FOREIGN KEY (`aip_type_id`)
+                FOREIGN KEY (`type_id`)
                 REFERENCES `term` (`id`)
                 ON DELETE SET NULL
 )Engine=InnoDB;

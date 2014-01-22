@@ -38,9 +38,11 @@ class AipTableMap extends TableMap {
 		// columns
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
 		$this->addForeignKey('INFORMATION_OBJECT_ID', 'informationObjectId', 'INTEGER', 'information_object', 'ID', false, null, null);
-		$this->addForeignKey('AIP_TYPE_ID', 'aipTypeId', 'INTEGER', 'term', 'ID', false, null, null);
-		$this->addColumn('OBJECT_UUID', 'objectUuid', 'VARCHAR', false, 255, null);
-		$this->addColumn('AIP_UUID', 'aipUuid', 'VARCHAR', false, 255, null);
+		$this->addForeignKey('TYPE_ID', 'typeId', 'INTEGER', 'term', 'ID', false, null, null);
+		$this->addColumn('UUID', 'uuid', 'VARCHAR', false, 36, null);
+		$this->addColumn('FILENAME', 'filename', 'VARCHAR', false, 1024, null);
+		$this->addColumn('SIZE_ON_DISK', 'sizeOnDisk', 'VARCHAR', false, 255, null);
+		$this->addColumn('DIGITAL_OBJECT_COUNT', 'digitalObjectCount', 'INTEGER', false, null, null);
 		// validators
 	} // initialize()
 
@@ -51,7 +53,7 @@ class AipTableMap extends TableMap {
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('informationObject', 'informationObject', RelationMap::MANY_TO_ONE, array('information_object_id' => 'id', ), null, null);
-    $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('aip_type_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), 'SET NULL', null);
 	} // buildRelations()
 
 } // AipTableMap
