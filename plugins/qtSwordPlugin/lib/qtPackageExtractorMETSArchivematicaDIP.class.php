@@ -292,6 +292,18 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
 
+    $parts = pathinfo($this->filename);
+    $filename = $parts['basename'];
+
+    // Store AIP data
+    $aip = new QubitAip;
+    $aip->typeId = QubitTerm::DOCUMENTATION_ID; // TODO: Get AIP type from METS
+    $aip->uuid = $aipUUID;
+    $aip->filename = $filename; // Remove UUID from filename? Obtain it from the METS?
+    $aip->sizeOnDisk = hr_filesize(Qubit::getDirectorySize($this->filename)); // Must be the AIP size in the METS, not the DIP size
+    $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
+    $aip->save();
+
     // Main object
     if (null != ($dmdSec = $this->getMainDmdSec()))
     {
@@ -306,24 +318,18 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       {
         $this->addCreationEvent($parent, $creation);
       }
+
+      // Create relation with AIP
+      $relation = new QubitRelation;
+      $relation->object = $parent;
+      $relation->subject = $aip;
+      $relation->typeId = QubitTerm::AIP_RELATION_ID;
+      $relation->save();
     }
     else
     {
       $parent = $this->resource;
     }
-
-    $parts = pathinfo($this->filename);
-    $filename = $parts['basename'];
-
-    // Store AIP data
-    $aip = new QubitAip;
-    $aip->typeId = QubitTerm::DOCUMENTATION_ID; // TODO: Get AIP type from param
-    $aip->informationObjectId = $parent->id;
-    $aip->uuid = $aipUUID;
-    $aip->filename = $filename; // Remove UUID from filename?
-    $aip->sizeOnDisk = hr_filesize(Qubit::getDirectorySize($this->filename));
-    $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
-    $aip->save();
 
     $mapping = $this->getStructMapFileToDmdSecMapping();
 
@@ -376,6 +382,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           $this->addCreationEvent($child, $creation);
         }
       }
+
+      // Create relation with AIP
+      $relation = new QubitRelation;
+      $relation->object = $child;
+      $relation->subject = $aip;
+      $relation->typeId = QubitTerm::AIP_RELATION_ID;
+      $relation->save();
     }
 
     parent::process();

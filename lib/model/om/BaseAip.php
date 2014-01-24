@@ -8,7 +8,6 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
     TABLE_NAME = 'aip',
 
     ID = 'aip.ID',
-    INFORMATION_OBJECT_ID = 'aip.INFORMATION_OBJECT_ID',
     TYPE_ID = 'aip.TYPE_ID',
     UUID = 'aip.UUID',
     FILENAME = 'aip.FILENAME',
@@ -22,7 +21,6 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitAip::ID, QubitObject::ID);
 
     $criteria->addSelectColumn(QubitAip::ID);
-    $criteria->addSelectColumn(QubitAip::INFORMATION_OBJECT_ID);
     $criteria->addSelectColumn(QubitAip::TYPE_ID);
     $criteria->addSelectColumn(QubitAip::UUID);
     $criteria->addSelectColumn(QubitAip::FILENAME);
@@ -72,13 +70,6 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
     parent::__construct();
 
     $this->tables[] = Propel::getDatabaseMap(QubitAip::DATABASE_NAME)->getTable(QubitAip::TABLE_NAME);
-  }
-
-  public static function addJoininformationObjectCriteria(Criteria $criteria)
-  {
-    $criteria->addJoin(QubitAip::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
-
-    return $criteria;
   }
 
   public static function addJointypeCriteria(Criteria $criteria)

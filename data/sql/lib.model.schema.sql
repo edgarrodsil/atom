@@ -111,7 +111,6 @@ DROP TABLE IF EXISTS `aip`;
 CREATE TABLE `aip`
 (
 	`id` INTEGER  NOT NULL,
-	`information_object_id` INTEGER,
 	`type_id` INTEGER,
 	`uuid` VARCHAR(36),
 	`filename` VARCHAR(1024),
@@ -122,12 +121,8 @@ CREATE TABLE `aip`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
 		ON DELETE CASCADE,
-	INDEX `aip_FI_2` (`information_object_id`),
+	INDEX `aip_FI_2` (`type_id`),
 	CONSTRAINT `aip_FK_2`
-		FOREIGN KEY (`information_object_id`)
-		REFERENCES `information_object` (`id`),
-	INDEX `aip_FI_3` (`type_id`),
-	CONSTRAINT `aip_FK_3`
 		FOREIGN KEY (`type_id`)
 		REFERENCES `term` (`id`)
 		ON DELETE SET NULL

@@ -125,11 +125,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     {
     }
 
-    if ('aips' == $name)
-    {
-      return true;
-    }
-
     if ('digitalObjects' == $name)
     {
       return true;
@@ -192,23 +187,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     }
     catch (sfException $e)
     {
-    }
-
-    if ('aips' == $name)
-    {
-      if (!isset($this->refFkValues['aips']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['aips'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['aips'] = self::getaipsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['aips'];
     }
 
     if ('digitalObjects' == $name)
@@ -537,26 +515,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitInformationObject::DISPLAY_STANDARD_ID, QubitTerm::ID);
 
     return $criteria;
-  }
-
-  public static function addaipsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAip::INFORMATION_OBJECT_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaipsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaipsCriteriaById($criteria, $id);
-
-    return QubitAip::get($criteria, $options);
-  }
-
-  public function addaipsCriteria(Criteria $criteria)
-  {
-    return self::addaipsCriteriaById($criteria, $this->id);
   }
 
   public static function adddigitalObjectsCriteriaById(Criteria $criteria, $id)

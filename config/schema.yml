@@ -36,7 +36,6 @@ propel:
 
   aip:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
-    information_object_id:
     type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     uuid: varchar(36)
     filename: varchar(1024)

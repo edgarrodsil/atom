@@ -37,7 +37,6 @@ class AipTableMap extends TableMap {
 		$this->setUseIdGenerator(false);
 		// columns
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
-		$this->addForeignKey('INFORMATION_OBJECT_ID', 'informationObjectId', 'INTEGER', 'information_object', 'ID', false, null, null);
 		$this->addForeignKey('TYPE_ID', 'typeId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('UUID', 'uuid', 'VARCHAR', false, 36, null);
 		$this->addColumn('FILENAME', 'filename', 'VARCHAR', false, 1024, null);
@@ -52,7 +51,6 @@ class AipTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('informationObject', 'informationObject', RelationMap::MANY_TO_ONE, array('information_object_id' => 'id', ), null, null);
     $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), 'SET NULL', null);
 	} // buildRelations()
 

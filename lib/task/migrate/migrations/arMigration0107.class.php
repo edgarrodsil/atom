@@ -42,7 +42,6 @@ class arMigration0107
 CREATE TABLE `aip`
 (
         `id` INTEGER  NOT NULL,
-        `information_object_id` INTEGER  NOT NULL,
         `type_id` INTEGER,
         `uuid` VARCHAR(36),
         `filename` VARCHAR(1024),
@@ -53,12 +52,8 @@ CREATE TABLE `aip`
                 FOREIGN KEY (`id`)
                 REFERENCES `object` (`id`)
                 ON DELETE CASCADE,
-        INDEX `aip_FI_2` (`information_object_id`),
+        INDEX `aip_FI_2` (`type_id`),
         CONSTRAINT `aip_FK_2`
-                FOREIGN KEY (`information_object_id`)
-                REFERENCES `information_object` (`id`),
-        INDEX `aip_FI_3` (`type_id`),
-        CONSTRAINT `aip_FK_3`
                 FOREIGN KEY (`type_id`)
                 REFERENCES `term` (`id`)
                 ON DELETE SET NULL
@@ -67,6 +62,16 @@ CREATE TABLE `aip`
 sql;
 
     QubitPdo::modify($sql);
+
+    // Create new term for the AIP relation type
+    QubitMigrate::bumpTerm(QubitTerm::AIP_RELATION_ID, $configuration);
+    $term = new QubitTerm;
+    $term->id = QubitTerm::AIP_RELATION_ID;
+    $term->parentId = QubitTerm::ROOT_ID;
+    $term->taxonomyId = QubitTaxonomy::RELATION_TYPE_ID;
+    $term->name = 'AIP relation';
+    $term->culture = 'en';
+    $term->save();
 
     // Add "AIP types" taxonomy
     QubitMigrate::bumpTaxonomy(QubitTaxonomy::AIP_TYPE_ID, $configuration);

@@ -1843,31 +1843,38 @@ QubitTerm:
       pt: Política
       sl: Pravilo
       th: นโยบาย
+  QubitTerm_term_aip_relation:
+    taxonomy_id: QubitTaxonomy_19
+    parent_id: QubitTerm_110
+    id: 178
+    source_culture: en
+    name:
+      en: 'AIP relation'
   QubitTerm_term_artwork:
     taxonomy_id: QubitTaxonomy_aip_types
     parent_id: QubitTerm_110
-    id: 178
+    id: 179
     source_culture: en
     name:
       en: 'Artwork'
   QubitTerm_term_software:
     taxonomy_id: QubitTaxonomy_aip_types
     parent_id: QubitTerm_110
-    id: 179
+    id: 180
     source_culture: en
     name:
       en: 'Software'
   QubitTerm_term_documentation:
     taxonomy_id: QubitTaxonomy_aip_types
     parent_id: QubitTerm_110
-    id: 180
+    id: 181
     source_culture: en
     name:
       en: 'Documentation'
   QubitTerm_term_unclassified:
     taxonomy_id: QubitTaxonomy_aip_types
     parent_id: QubitTerm_110
-    id: 181
+    id: 182
     source_culture: en
     name:
       en: 'Unclassified'
