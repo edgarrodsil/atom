@@ -300,7 +300,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $aip->typeId = QubitTerm::DOCUMENTATION_ID; // TODO: Get AIP type from METS
     $aip->uuid = $aipUUID;
     $aip->filename = $filename; // Remove UUID from filename? Obtain it from the METS?
-    $aip->sizeOnDisk = hr_filesize(Qubit::getDirectorySize($this->filename)); // Must be the AIP size in the METS, not the DIP size
+    $aip->sizeOnDisk = Qubit::getDirectorySize($this->filename); // Must be the AIP size in the METS, not the DIP size
     $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
     $aip->save();
 

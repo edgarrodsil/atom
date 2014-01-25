@@ -45,7 +45,7 @@ CREATE TABLE `aip`
         `type_id` INTEGER,
         `uuid` VARCHAR(36),
         `filename` VARCHAR(1024),
-        `size_on_disk` VARCHAR(255),
+        `size_on_disk` BIGINT,
         `digital_object_count` INTEGER,
         PRIMARY KEY (`id`),
         CONSTRAINT `aip_FK_1`

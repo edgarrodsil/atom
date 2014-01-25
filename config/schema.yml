@@ -39,7 +39,7 @@ propel:
     type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     uuid: varchar(36)
     filename: varchar(1024)
-    size_on_disk: varchar(255)
+    size_on_disk: bigint
     digital_object_count: integer
 
   contact_information:

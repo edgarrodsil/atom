@@ -40,7 +40,7 @@ class AipTableMap extends TableMap {
 		$this->addForeignKey('TYPE_ID', 'typeId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('UUID', 'uuid', 'VARCHAR', false, 36, null);
 		$this->addColumn('FILENAME', 'filename', 'VARCHAR', false, 1024, null);
-		$this->addColumn('SIZE_ON_DISK', 'sizeOnDisk', 'VARCHAR', false, 255, null);
+		$this->addColumn('SIZE_ON_DISK', 'sizeOnDisk', 'BIGINT', false, null, null);
 		$this->addColumn('DIGITAL_OBJECT_COUNT', 'digitalObjectCount', 'INTEGER', false, null, null);
 		// validators
 	} // initialize()
