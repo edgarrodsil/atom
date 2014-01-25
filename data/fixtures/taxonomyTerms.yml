@@ -1850,34 +1850,34 @@ QubitTerm:
     source_culture: en
     name:
       en: 'AIP relation'
-  QubitTerm_term_artwork:
+  QubitTerm_term_artwork_component:
     taxonomy_id: QubitTaxonomy_aip_types
     parent_id: QubitTerm_110
     id: 179
     source_culture: en
     name:
-      en: 'Artwork'
-  QubitTerm_term_software:
+      en: 'Artwork component'
+  QubitTerm_term_artwork_material:
     taxonomy_id: QubitTaxonomy_aip_types
     parent_id: QubitTerm_110
     id: 180
     source_culture: en
     name:
-      en: 'Software'
-  QubitTerm_term_documentation:
+      en: 'Artwork material'
+  QubitTerm_term_supporting_documentation:
     taxonomy_id: QubitTaxonomy_aip_types
     parent_id: QubitTerm_110
     id: 181
     source_culture: en
     name:
-      en: 'Documentation'
-  QubitTerm_term_unclassified:
+      en: 'Supporting documentation'
+  QubitTerm_term_supporting_technology:
     taxonomy_id: QubitTaxonomy_aip_types
     parent_id: QubitTerm_110
     id: 182
     source_culture: en
     name:
-      en: 'Unclassified'
+      en: 'Supporting technology'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical

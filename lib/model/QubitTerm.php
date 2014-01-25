@@ -151,10 +151,10 @@ class QubitTerm extends BaseTerm
     AIP_RELATION_ID = 178,
 
     // AIP types
-    ARTWORK_ID = 179,
-    SOFTWARE_ID = 180,
-    DOCUMENTATION_ID = 181,
-    UNCLASSIFIED_ID = 182;
+    ARTWORK_COMPONENT_ID = 179,
+    ARTWORK_MATERIAL_ID = 180,
+    SUPPORTING_DOCUMENTATION_ID = 181,
+    SUPPORTING_TECHNOLOGY_ID = 182;
 
 
   public static function isProtected($id)

@@ -84,10 +84,10 @@ sql;
 
     // Add "AIP types" terms
     foreach (array(
-      QubitTerm::ARTWORK_ID => 'Artwork',
-      QubitTerm::SOFTWARE_ID => 'Software',
-      QubitTerm::DOCUMENTATION_ID => 'Documentation',
-      QubitTerm::UNCLASSIFIED_ID => 'Unclassified') as $id => $value)
+      QubitTerm::ARTWORK_COMPONENT_ID => 'Artwork component',
+      QubitTerm::ARTWORK_MATERIAL_ID => 'Artwork material',
+      QubitTerm::SUPPORTING_DOCUMENTATION_ID => 'Supporting documentation',
+      QubitTerm::SUPPORTING_TECHNOLOGY_ID => 'Supporting technology') as $id => $value)
     {
       QubitMigrate::bumpTerm($id, $configuration);
       $term = new QubitTerm;
