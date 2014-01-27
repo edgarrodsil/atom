@@ -62,6 +62,17 @@ mapping:
     properties:
       slug: { type: string, index: not_analyzed }
 
+  aip:
+    _attributes:
+      nested_only: true
+    dynamic: strict
+    properties:
+      type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      uuid: { type: string, index: not_analyzed }
+      filename: { type: string, index: not_analyzed }
+      size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
+      digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
+
   #
   # Main types
   #
@@ -125,6 +136,7 @@ mapping:
       subjects: term
       places: term
       dates: event
+      aip: aip
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }

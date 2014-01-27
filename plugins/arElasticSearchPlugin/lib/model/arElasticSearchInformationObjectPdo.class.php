@@ -584,6 +584,42 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
   }
 
+  /*
+   * Get aips
+   */
+  protected function getAips()
+  {
+    $sql  = 'SELECT
+                aip.type_id,
+                aip.uuid,
+                aip.filename,
+                aip.size_on_disk,
+                aip.digital_object_count';
+    $sql .= ' FROM '.QubitAip::TABLE_NAME.' aip';
+    $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
+                ON aip.id = relation.subject_id';
+    $sql .= ' WHERE relation.object_id = ?
+                AND relation.type_id = ?';
+
+    self::$statements['aip'] = self::$conn->prepare($sql);
+    self::$statements['aip']->execute(array($this->__get('id'), QubitTerm::AIP_RELATION_ID));
+
+    $aips = array();
+    foreach (self::$statements['aip']->fetchAll() as $item)
+    {
+      $aip = array();
+      $aip['typeId'] = $item['type_id'];
+      $aip['uuid'] = $item['uuid'];
+      $aip['filename'] = $item['filename'];
+      $aip['sizeOnDisk'] = $item['size_on_disk'];
+      $aip['digitalObjectCount'] = $item['digital_object_count'];
+
+      $aips[] = $aip;
+    }
+
+    return $aips;
+  }
+
   protected function getLanguagesAndScripts()
   {
     // Find langs and scripts
@@ -953,6 +989,12 @@ class arElasticSearchInformationObjectPdo
     {
       $node = new arElasticSearchActorPdo($item->id);
       $serialized['creators'][] = $node->serialize();
+    }
+
+    // Aips
+    foreach ($this->getAips() as $item)
+    {
+      $serialized['aip'][] = $item;
     }
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
